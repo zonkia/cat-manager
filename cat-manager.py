@@ -71,8 +71,8 @@ while True:
             print("2. Wylosuj kota i dodaj do ulubionych")
             print("3. Pokaż ulubione")
             print("4. Usuń kota z listy ulubionych")
-            MenuChoice = int(input())
-            if MenuChoice == Menu.zaloguj or MenuChoice == Menu.dodaj or MenuChoice == Menu.ulubione or MenuChoice == Menu.usun:
+            menuChoice = int(input())
+            if menuChoice == Menu.zaloguj or menuChoice == Menu.dodaj or menuChoice == Menu.ulubione or menuChoice == Menu.usun:
                 break
             else:
                 print("Nieprawidłowy wybór. Spróbuj ponownie wpisując samą cyfrę")
@@ -83,12 +83,12 @@ while True:
             print()
             continue
 
-    if MenuChoice == Menu.zaloguj:
+    if menuChoice == Menu.zaloguj:
         usrId = input("Podaj swoje imię: ")
         print()
         continue
 
-    if MenuChoice == Menu.dodaj:
+    if menuChoice == Menu.dodaj:
         #sprawdzamy czy użytkownik jest zalogowany
         if usrId == "":
             print("Musisz się najpierw zalogować")
@@ -110,7 +110,7 @@ while True:
         continue
 
     #sprawdzamy ulubione
-    if MenuChoice == Menu.ulubione:
+    if menuChoice == Menu.ulubione:
         #sprawdzamy czy użytkownik jest zalogowany
         if usrId == "":
             print("Musisz się najpierw zalogować")
@@ -134,7 +134,7 @@ while True:
             continue
 
     #usuwamy ulubione
-    if MenuChoice == Menu.usun:
+    if menuChoice == Menu.usun:
         #sprawdzamy czy użytkownik jest zalogowany
         if usrId == "":
             print("Musisz się najpierw zalogować")
