@@ -8,7 +8,7 @@ header = {
         "x-api-key": "[YOUR API KEY]"
         }
 
-menu = IntEnum("menu", "zaloguj dodaj ulubione usun")
+Menu = IntEnum("Menu", "zaloguj dodaj ulubione usun")
 usrId = ""
 
 def get_random_cat():
@@ -71,8 +71,8 @@ while True:
             print("2. Wylosuj kota i dodaj do ulubionych")
             print("3. Pokaż ulubione")
             print("4. Usuń kota z listy ulubionych")
-            menuChoice = int(input())
-            if menuChoice == menu.zaloguj or menuChoice == menu.dodaj or menuChoice == menu.ulubione or menuChoice == menu.usun:
+            MenuChoice = int(input())
+            if MenuChoice == Menu.zaloguj or MenuChoice == Menu.dodaj or MenuChoice == Menu.ulubione or MenuChoice == Menu.usun:
                 break
             else:
                 print("Nieprawidłowy wybór. Spróbuj ponownie wpisując samą cyfrę")
@@ -83,12 +83,12 @@ while True:
             print()
             continue
 
-    if menuChoice == menu.zaloguj:
+    if MenuChoice == Menu.zaloguj:
         usrId = input("Podaj swoje imię: ")
         print()
         continue
 
-    if menuChoice == menu.dodaj:
+    if MenuChoice == Menu.dodaj:
         #sprawdzamy czy użytkownik jest zalogowany
         if usrId == "":
             print("Musisz się najpierw zalogować")
@@ -110,7 +110,7 @@ while True:
         continue
 
     #sprawdzamy ulubione
-    if menuChoice == menu.ulubione:
+    if MenuChoice == Menu.ulubione:
         #sprawdzamy czy użytkownik jest zalogowany
         if usrId == "":
             print("Musisz się najpierw zalogować")
@@ -134,7 +134,7 @@ while True:
             continue
 
     #usuwamy ulubione
-    if menuChoice == menu.usun:
+    if MenuChoice == Menu.usun:
         #sprawdzamy czy użytkownik jest zalogowany
         if usrId == "":
             print("Musisz się najpierw zalogować")
