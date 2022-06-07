@@ -4,34 +4,35 @@ import webbrowser
 from pprint import pprint
 from enum import IntEnum
 
-header = {
-    "x-api-key": "[YOUR_API_KEY]"
-}
+header = {"x-api-key": "YOUR_API_KEY"}
 
 Menu = IntEnum("Menu", "zaloguj dodaj ulubione usun")
 usrId = ""
 
 
 def get_random_cat():
-    parameters = {
-        "limit": 1
-    }
+    parameters = {"limit": 1}
     try:
         randomCatJson = requests.get(
-            "https://api.thecatapi.com/v1/images/search", parameters, headers=header).json()
+            "https://api.thecatapi.com/v1/images/search", parameters, headers=header
+        ).json()
     except json.decoder.JSONDecodeError:
         print("Niepoprawny format", randomCatJson.text)
     return randomCatJson[0]
 
 
 def add_to_favorites(catId, usrId):
-    usrCatParameters = {
-        "image_id": catId,
-        "sub_id": usrId
+
+    headers = {
+        'content-type': "application/json",
+        'x-api-key': "a794cc6e-d62c-4ae9-8ac4-bd3cda7fea08"
     }
+
+    usrCatParameters = {"image_id": catId, "sub_id": usrId}
     try:
-        addToFavorites = requests.post(
-            "https://api.thecatapi.com/v1/favorites", json=usrCatParameters, headers=header).json()
+        addToFavorites = requests.post("https://api.thecatapi.com/v1/favourites", data=json.dumps(
+            {"image_id": str(catId), "sub_id": str(usrId)}), headers=headers).json()
+
     except json.decoder.JSONDecodeError:
         print("Niepoprawny format", addToFavorites.text)
     print("Dodano do ulubionych")
@@ -39,13 +40,11 @@ def add_to_favorites(catId, usrId):
 
 
 def view_favorites(usrId):
-    parameters = {
-        "limit": 100,
-        "sub_id": usrId
-    }
+
     try:
         FavoriteCatsJson = requests.get(
-            "https://api.thecatapi.com/v1/favorites", parameters, headers=header).json()
+            "https://api.thecatapi.com/v1/favourites", headers=header
+        ).json()
     except json.decoder.JSONDecodeError:
         print("Niepoprawny format", FavoriteCatsJson.text)
     return FavoriteCatsJson
@@ -54,7 +53,8 @@ def view_favorites(usrId):
 def delete_favorite(usrId, favId):
     try:
         deleteFavorite = requests.delete(
-            "https://api.thecatapi.com/v1/favorites/" + favId, headers=header).json()
+            "https://api.thecatapi.com/v1/favourites/" + favId, headers=header).json()
+        print(deleteFavorite)
     except json.decoder.JSONDecodeError:
         print("Niepoprawny format", deleteFavorite.text)
     return deleteFavorite
@@ -63,8 +63,7 @@ def delete_favorite(usrId, favId):
 def view_favorite_ids(view_favorites, usrId):
     favoriteCats = view_favorites(usrId)
     favoriteIds_dict = {cats["id"]: cats["image"]["url"]
-                        for cats in favoriteCats
-                        }
+                        for cats in favoriteCats}
     return favoriteIds_dict
 
 
@@ -82,7 +81,12 @@ while True:
             print("3. Pokaż ulubione")
             print("4. Usuń kota z listy ulubionych")
             menuChoice = int(input())
-            if menuChoice == Menu.zaloguj or menuChoice == Menu.dodaj or menuChoice == Menu.ulubione or menuChoice == Menu.usun:
+            if (
+                menuChoice == Menu.zaloguj
+                or menuChoice == Menu.dodaj
+                or menuChoice == Menu.ulubione
+                or menuChoice == Menu.usun
+            ):
                 break
             else:
                 print("Nieprawidłowy wybór. Spróbuj ponownie wpisując samą cyfrę")
